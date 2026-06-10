@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Livraria Home</title>
+</head>
+<body>
+    <h1>Bem-vindo a Livraria</h1>
+    <nav>
+        {% if session.get('user_id') %}
+            <span>Ola, {{ session.username }}</span>
+            <a href="{{ url_for('view_cart') }}">Carrinho</a>
+            <a href="{{ url_for('history') }}">Historico</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Cadastrar</a>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <h2>Livros Disponiveis</h2>
+    <table border="1">
+        <tr>
+            <th>Titulo</th>
+            <th>Preco</th>
+            <th>Estoque</th>
+            <th>Acao</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.title }}</td>
+            <td>R$ {{ "%.2f"|format(product.price) }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+                {% if product.stock > 0 %}
+                    <a href="{{ url_for('add_to_cart', product_id=product.id) }}">Adicionar ao Carrinho</a>
+                {% else %}
+                    Esgotado
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

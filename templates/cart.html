@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+    <h1>Seu Carrinho</h1>
+    {% if cart %}
+        <table border="1">
+            <tr>
+                <th>Livro</th>
+                <th>Preco</th>
+                <th>Quantidade</th>
+                <th>Acoes</th>
+            </tr>
+            {% for pid, item in cart.items() %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>R$ {{ "%.2f"|format(item.price) }}</td>
+                <td>
+                    <a href="{{ url_for('update_cart', product_id=pid, action='decrease') }}">-</a>
+                    {{ item.quantity }}
+                    <a href="{{ url_for('update_cart', product_id=pid, action='increase') }}">+</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('remove_from_cart', product_id=pid) }}">Remover</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>Total: R$ {{ "%.2f"|format(total) }}</h2>
+        <a href="{{ url_for('clear_cart') }}">Limpar Carrinho</a>
+        <a href="{{ url_for('checkout') }}">Ir para Pagamento</a>
+    {% else %}
+        <p>O carrinho esta vazio.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('home') }}">Continuar Comprando</a>
+</body>
+</html>

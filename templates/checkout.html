@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pagamento</title>
+</head>
+<body>
+    <h1>Pagamento Simulador</h1>
+    <h2>Total a Pagar: R$ {{ "%.2f"|format(total) }}</h2>
+    <form action="{{ url_for('checkout') }}" method="POST">
+        <label>Nome no Cartao:</label>
+        <input type="text" name="card_name" required>
+        <br>
+        <label>Numero do Cartao:</label>
+        <input type="text" name="card_number" maxlength="16" required>
+        <br>
+        <label>Validade (MM/AA):</label>
+        <input type="text" name="expiry" maxlength="5" required>
+        <br>
+        <label>CVV:</label>
+        <input type="text" name="cvv" maxlength="3" required>
+        <br>
+        <button type="submit">Finalizar Compra</button>
+    </form>
+    <a href="{{ url_for('view_cart') }}">Voltar ao Carrinho</a>
+</body>
+</html>

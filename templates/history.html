@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historico de Compras</title>
+</head>
+<body>
+    <h1>Historico de Compras</h1>
+    {% if orders %}
+        <table border="1">
+            <tr>
+                <th>ID do Pedido</th>
+                <th>Data</th>
+                <th>Total</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.order_date }}</td>
+                <td>R$ {{ "%.2f"|format(order.total_price) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Voce ainda nao fez nenhuma compra.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('home') }}">Voltar a Home</a>
+</body>
+</html>
