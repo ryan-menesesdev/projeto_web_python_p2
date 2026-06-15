@@ -2,6 +2,93 @@
 <html>
 <head>
     <title>Livraria Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 30px;
+        }
+        header, h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        nav span {
+            font-weight: bold;
+            margin-right: 20px;
+            color: #34495e;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        nav a:hover {
+            background-color: #ecf0f1;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eef2f5;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        td a {
+            color: #2ecc71;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        td a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding: 15px;
+            background-color: #fce4e4;
+            color: #a94442;
+            border: 1px solid #f8d7da;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Bem-vindo a Livraria</h1>
@@ -28,7 +115,7 @@
     {% endwith %}
 
     <h2>Livros Disponiveis</h2>
-    <table border="1">
+    <table>
         <tr>
             <th>Titulo</th>
             <th>Preco</th>
@@ -44,7 +131,7 @@
                 {% if product.stock > 0 %}
                     <a href="{{ url_for('add_to_cart', product_id=product.id) }}">Adicionar ao Carrinho</a>
                 {% else %}
-                    Esgotado
+                    <span style="color: #95a5a6; font-weight: bold;">Esgotado</span>
                 {% endif %}
             </td>
         </tr>
