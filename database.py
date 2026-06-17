@@ -1,5 +1,6 @@
 from config import mysql
 import MySQLdb.cursors
+from werkzeug.security import generate_password_hash
 
 def get_db_cursor(dictionary=True):
     if dictionary:
@@ -8,7 +9,8 @@ def get_db_cursor(dictionary=True):
 
 def create_user(username, password):
     cursor = get_db_cursor(False)
-    cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
+    password_hash = generate_password_hash(password)
+    cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password_hash))
     mysql.connection.commit()
     cursor.close()
 

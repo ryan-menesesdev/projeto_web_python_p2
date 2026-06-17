@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for, session, flash
 from config import app
+from werkzeug.security import check_password_hash
 import database
 
 @app.route("/")
@@ -31,7 +32,7 @@ def login():
         password = request.form['password']
         user = database.get_user_by_username(username)
         
-        if user and user['password'] == password:
+        if user and check_password_hash(user['password'], password):
             session['user_id'] = user['id']
             session['username'] = user['username']
             return redirect(url_for('home'))
@@ -126,7 +127,6 @@ def checkout():
 
 @app.route("/history")
 def history():
-    print(session)
     if 'user_id' not in session:
         return redirect(url_for('login'))
         
